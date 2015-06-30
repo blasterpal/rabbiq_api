@@ -10,10 +10,11 @@ Inspired from: http://codetunes.com/2014/event-sourcing-on-rails-with-rabbitmq/
 
 1000 Posts models title:string, body: text, published: boolean
 
-siege -c 10 -t 1M http://localhost:3000/api/posts.json
+`siege -c 10 -t 1M http://localhost:3000/api/posts.json`
 
 ## With Straight ActiveRecord
 
+```bash
 Transactions:            247 hits
 Availability:         100.00 %
 Elapsed time:          59.63 secs
@@ -26,9 +27,11 @@ Successful transactions:         247
 Failed transactions:             0
 Longest transaction:          3.89
 Shortest transaction:         0.45
+```
 
 ## With Publish to rabbit all rows and then pop all from queue
 
+```bash
 Transactions:            128 hits
 Availability:         100.00 %
 Elapsed time:          59.39 secs
@@ -41,4 +44,4 @@ Successful transactions:         128
 Failed transactions:             0
 Longest transaction:          7.72
 Shortest transaction:         0.51
-
+```
