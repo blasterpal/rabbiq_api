@@ -1,5 +1,14 @@
 # RabbitMQ as API proxy PoC
 
+## Notable
+
+* using straight `bunny` adapter.
+* using Puma (threaded web server)
+* rails-api in lieu if full rails
+
+
+
+
 Just a simple test, not wholly real world.
 
 * See api/posts controller for 'api'
@@ -8,7 +17,7 @@ Just a simple test, not wholly real world.
 Inspired from: http://codetunes.com/2014/event-sourcing-on-rails-with-rabbitmq/
 
 
-1000 Posts models title:string, body: text, published: boolean
+1000 Posts models `title:string, body: text, published: boolean`
 
 `siege -c 10 -t 1M http://localhost:3000/api/posts.json`
 
@@ -29,7 +38,7 @@ Longest transaction:          3.89
 Shortest transaction:         0.45
 ```
 
-## With Publish to rabbit all rows and then pop all from queue
+## With Publish to rabbit all rows and then pop all from queue (synchronously)
 
 ```bash
 Transactions:            128 hits
