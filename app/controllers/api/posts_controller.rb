@@ -4,11 +4,16 @@ class Api::PostsController < ApplicationController
   # GET /api/posts
   # GET /api/posts.json
   def index
+    
+    api_posts = Api::Post.all
+    
+    # Rabbit Sync - push 10k messages
+    Publisher.publish("posts_all",api_posts)
+    @api_posts = Subscriber.pop("posts_all")
 
-    posts = Api::Post.all
-    Publisher.publish("posts_all",posts)
-    @api_posts = Subscriber.subsribe("posts_all")
+    # Regular
     render json: @api_posts
+
   end
 
   # GET /api/posts/1

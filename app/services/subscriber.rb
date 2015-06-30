@@ -2,13 +2,14 @@ class Subscriber
   # In order to publish message we need a exchange name.
   # Note that RabbitMQ does not care about the payload -
   # we will be using JSON-encoded strings
-  def self.subscribe(type, message = {},&blok)
-    # grab the fanout exchange
-    x = channel.queue("msg.#{type}", auto_delete: true)
-    # and simply publish message
-    x.subscribe(&blok)# do |delivery_info, properties, payload| 
-       
-    #end
+  def self.pop(type, message = {},&blok)
+    q = channel.queue("msg.#{type}", auto_delete: true)
+    the_payload = nil
+    q.subscribe(block: true) do |delivery_info, _, payload|
+      the_payload = payload
+      channel.consumers[delivery_info.consumer_tag].cancel
+    end     
+    the_payload
   end
 
   def self.channel

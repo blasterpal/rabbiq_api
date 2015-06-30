@@ -10,7 +10,8 @@ gem 'spring', :group => :development
 gem 'pry'
 gem 'sqlite3'
 gem 'bunny'
-
+gem 'faker'
+gem 'puma'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
